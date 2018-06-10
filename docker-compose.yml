@@ -6,9 +6,19 @@ services:
       dockerfile: Dockerfile
     image: data-processing-app
     ports:
-      - 8080
+      - 8080:8080
+      - 5005:5005
+    networks:
+      - network1
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - 6379:6379
     networks:
       - network1
 
 networks:
   network1:
+    driver: bridge

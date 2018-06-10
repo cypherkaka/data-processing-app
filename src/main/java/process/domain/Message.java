@@ -1,20 +1,23 @@
 package process.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
-public class Message {
+@RedisHash("Message")
+public class Message implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("messageId")
     private Long messageId;
-
-    @JsonProperty("message")
     private String message;
+
+    public Message(String message) {
+        this.message = message;
+    }
+
+    public Message(Long messageId, String message) {
+        this.messageId = messageId;
+        this.message = message;
+    }
 }
