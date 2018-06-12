@@ -35,9 +35,8 @@ public class DataProcessingServiceImpl implements DataProcessingService {
 
     @Override
     public void process(Message message) throws JsonProcessingException {
-//        messageRepository.save(message);
         hashOperations.put(KEY, message.getId(), message);
 
-        template.convertAndSend("/topic/greetings", new ObjectMapper().writeValueAsString(message));
+        template.convertAndSend("/topic/payload-messages", new ObjectMapper().writeValueAsString(message));
     }
 }
