@@ -25,7 +25,8 @@ public class DataProcessingApp implements WebMvcConfigurer {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName("redis");
+//        redisStandaloneConfiguration.setHostName("redis");
+        redisStandaloneConfiguration.setHostName("127.0.0.1");
         redisStandaloneConfiguration.setPort(6379);
 
         return new JedisConnectionFactory(redisStandaloneConfiguration);
