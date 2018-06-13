@@ -1,12 +1,13 @@
 var stompClient = null;
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/web-browser-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/payload-messages', function (payload) {
-            showPayloadMessages(JSON.parse(payload.body).message);
+            // showPayloadMessages(JSON.parse(payload.body).message);
+            showPayloadMessages(payload.body);
         });
     });
 }
@@ -20,7 +21,7 @@ $(function () {
         e.preventDefault();
     });
 
-    // Page connected by default
+    // Connection activated by default
     connect();
 });
 

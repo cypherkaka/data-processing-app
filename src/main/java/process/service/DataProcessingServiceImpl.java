@@ -1,42 +1,32 @@
 package process.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import process.domain.Message;
-
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
+import process.queue.MessagePublisher;
+import process.repository.RedisRepository;
 
 @Service
 public class DataProcessingServiceImpl implements DataProcessingService {
 
-    private static final String KEY = "messages";
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Qualifier("redisPublisher")
+    @Autowired
+    private MessagePublisher messagePublisher;
 
     @Autowired
-    private MessageRepository messageRepository;
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    private HashOperations<String, Long, Message> hashOperations;
-
-    @Autowired
-    private SimpMessagingTemplate template;
-
-    @PostConstruct
-    private void init() {
-        hashOperations = redisTemplate.opsForHash();
-    }
+    private RedisRepository redisRepository;
 
     @Override
     public void process(Message message) throws JsonProcessingException {
-        hashOperations.put(KEY, message.getId(), message);
 
-        template.convertAndSend("/topic/payload-messages", new ObjectMapper().writeValueAsString(message));
+        logger.info("From Process: redisRepository:  {}",redisRepository);
+
+        messagePublisher.publish(message);
     }
 }

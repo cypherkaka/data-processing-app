@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.GeneratedValue;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @RedisHash("Message")
 public class Message implements Serializable {
@@ -30,5 +29,13 @@ public class Message implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
