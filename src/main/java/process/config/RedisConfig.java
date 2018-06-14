@@ -11,10 +11,8 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import process.queue.MessagePublisher;
-import process.queue.MessagePublisherImpl;
-import process.queue.RedisSubscriber;
-import process.queue.WebSubscriber;
+import process.queue.*;
+import process.repository.H2Repository;
 import process.repository.RedisRepository;
 
 @Configuration
@@ -34,6 +32,9 @@ public class RedisConfig {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
+    private H2Repository h2Repository;
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
@@ -61,6 +62,11 @@ public class RedisConfig {
     }
 
     @Bean
+    MessageListenerAdapter h2MessageListener() {
+        return new MessageListenerAdapter(new H2Subscriber(h2Repository));
+    }
+
+    @Bean
     MessagePublisher redisPublisher() {
         return new MessagePublisherImpl(redisTemplate(), topic());
     }
@@ -76,6 +82,7 @@ public class RedisConfig {
         container.setConnectionFactory(jedisConnectionFactory());
         container.addMessageListener(redisMessageListener(), topic());
         container.addMessageListener(webMessageListener(), topic());
+        container.addMessageListener(h2MessageListener(), topic());
         return container;
     }
 }

@@ -1,23 +1,21 @@
 package process.queue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
+import process.repository.H2Repository;
 
 @Service
-public class WebSubscriber implements MessageListener {
+public class H2Subscriber implements MessageListener {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final H2Repository h2Repository;
 
-    public WebSubscriber(SimpMessagingTemplate simpMessagingTemplate) {
-        this.simpMessagingTemplate = simpMessagingTemplate;
+    public H2Subscriber(H2Repository h2Repository) {
+        this.h2Repository = h2Repository;
     }
 
     @Override
@@ -25,11 +23,6 @@ public class WebSubscriber implements MessageListener {
         process.domain.Message messagePayload = (process.domain.Message) SerializationUtils.deserialize(message.getBody());
         logger.info("Subscriber[{}] Received: {}", this.getClass().getSimpleName(), messagePayload);
 
-        try {
-            simpMessagingTemplate.convertAndSend("/topic/payload-messages", new ObjectMapper().writeValueAsString(messagePayload));
-        } catch (JsonProcessingException e) {
-            logger.error("Error processing message to web", e);
-        }
+        h2Repository.save(messagePayload);
     }
-
 }
