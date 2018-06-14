@@ -19,11 +19,11 @@ public interface RedisRepository {
     /**
      * Delete a key-value pair in Redis.
      */
-    void delete(String id);
+    void delete(long id);
 
     /**
      * find a message
      */
-    Message findMessage(String id);
+    Message findMessage(long id);
 
 }

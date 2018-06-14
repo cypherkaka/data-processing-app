@@ -1,25 +1,28 @@
 package process.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-@RedisHash("Message")
+@Entity
 public class Message implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     private String message;
 
-    public Long getId() {
+    private String generatedDateTime = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -31,11 +34,20 @@ public class Message implements Serializable {
         this.message = message;
     }
 
+    public String getGeneratedDateTime() {
+        return generatedDateTime;
+    }
+
+    public void setGeneratedDateTime(String generatedDateTime) {
+        this.generatedDateTime = generatedDateTime;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
+                ", generatedDateTime=" + generatedDateTime +
                 '}';
     }
 }

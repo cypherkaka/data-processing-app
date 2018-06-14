@@ -23,18 +23,19 @@ public class RedisRepositoryImpl implements RedisRepository {
 
     @PostConstruct
     private void init() {
+        redisTemplate.delete(KEY);
         hashOperations = redisTemplate.opsForHash();
     }
 
     public void add(final Message message) {
-        hashOperations.put(KEY, message.getId(), message.getMessage());
+        hashOperations.put(KEY, message.getId(), message);
     }
 
-    public void delete(final String id) {
+    public void delete(final long id) {
         hashOperations.delete(KEY, id);
     }
 
-    public Message findMessage(final String id) {
+    public Message findMessage(final long id) {
         return (Message) hashOperations.get(KEY, id);
     }
 
