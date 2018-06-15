@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
@@ -45,9 +44,6 @@ public class DataProcessingControllerTest {
     @Autowired
     DataProcessingService dataProcessingService;
 
-    @Autowired
-    JedisConnectionFactory jedisConnectionFactory;
-
     @Test
     public void processMessageTest() throws Exception {
 
@@ -81,7 +77,6 @@ public class DataProcessingControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(messageListAsJson))
                 .andExpect(status().isOk());
     }
-
 
     @Test
     public void getAllMessages() throws Exception {
