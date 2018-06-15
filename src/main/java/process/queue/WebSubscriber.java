@@ -23,7 +23,7 @@ public class WebSubscriber implements MessageListener {
     @Override
     public void onMessage(final Message message, final byte[] pattern) {
         process.domain.Message messagePayload = (process.domain.Message) SerializationUtils.deserialize(message.getBody());
-        logger.info("Subscriber[{}] Received: {}", this.getClass().getSimpleName(), messagePayload);
+        logger.info("Received for processing: {}", messagePayload);
 
         try {
             simpMessagingTemplate.convertAndSend("/topic/payload-messages", new ObjectMapper().writeValueAsString(messagePayload));
@@ -31,5 +31,4 @@ public class WebSubscriber implements MessageListener {
             logger.error("Error processing message to web", e);
         }
     }
-
 }

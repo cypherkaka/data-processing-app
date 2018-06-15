@@ -22,9 +22,8 @@ public class RedisSubscriber implements MessageListener {
     @Override
     public void onMessage(final Message message, final byte[] pattern) {
         process.domain.Message messagePayload = (process.domain.Message) SerializationUtils.deserialize(message.getBody());
-        logger.info("Subscriber[{}] Received: {}", this.getClass().getSimpleName(), messagePayload);
+        logger.info("Received for processing: {}", messagePayload);
 
         redisRepository.add(messagePayload);
     }
-
 }

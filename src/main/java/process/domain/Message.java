@@ -1,7 +1,6 @@
 package process.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 public class Message implements Serializable {
 
     @Id
-    @GeneratedValue
     private long id;
 
     private String message;

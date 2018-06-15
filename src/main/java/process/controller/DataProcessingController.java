@@ -27,7 +27,6 @@ public class DataProcessingController {
         return "Hi from Container! CurrentTime: " + LocalDateTime.now();
     }
 
-    @ResponseStatus(code = HttpStatus.CREATED)
     @RequestMapping(path = "/process", method = RequestMethod.POST)
     ResponseEntity<String> processMessage(@RequestBody Message message) throws JsonProcessingException {
 
@@ -36,11 +35,17 @@ public class DataProcessingController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/process-all", method = RequestMethod.POST)
+    ResponseEntity<String> processAllMessage(@RequestBody List<Message> messageList) throws JsonProcessingException {
+
+        dataProcessingService.process(messageList);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/message/get-all")
-    List<Message> getAllMessages() {
+    List<Message> getAllMessages(@RequestParam(value = "limit", required = false, defaultValue = "20") int limit) {
 
-        //TODO: to be implemented
-
-        throw new UnsupportedOperationException();
+        return dataProcessingService.getAllMessages(limit);
     }
 }

@@ -29,7 +29,7 @@ public class MessagePublisherImpl implements MessagePublisher {
 
     @Override
     public void publish(final Message message) {
-        logger.info("Publisher published: {}", message);
+        logger.info("Published: {}", message);
         redisTemplate.convertAndSend(topic.getTopic(), message);
     }
 
