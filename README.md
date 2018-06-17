@@ -52,22 +52,22 @@ To review detailed implementation, please start with `DataProcessingController.j
     
 * POST a message to process through REST Client
  
-`URL            : http://localhost:8080/data-processing-app/process `
+    `URL            : http://localhost:8080/data-processing-app/process `
 
-`Request        : {"id":1,"message":"MESSAGE 1"} `
+    `Request        : {"id":1,"message":"MESSAGE 1"} `
 
-`HTTP Method    : POST `
+    `HTTP Method    : POST `
 
-`HTTP Status    : 200 - Success `
+    `HTTP Status    : 200 - Success `
 
 * After posting a message you can see this message listed in listening web browser
 
 * GET all messages through REST Client
  
-`URL         : http://localhost:8080/data-processing-app/message/get-all?limit=20`
-
-`Response    : [ {"id":1,"message":"MESSAGE 1"} , {"id":2,"message":"MESSAGE 2"} ] `
-
-`HTTP Method : GET`
-
-`HTTP Status : 200 - Success`
+    `URL         : http://localhost:8080/data-processing-app/message/get-all?limit=20`
+    
+    `Response    : [ {"id":1,"message":"MESSAGE 1"} , {"id":2,"message":"MESSAGE 2"} ] `
+    
+    `HTTP Method : GET`
+    
+    `HTTP Status : 200 - Success`
