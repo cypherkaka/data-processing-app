@@ -1,17 +1,18 @@
 ## Data Processing Pipeline
 
 #### Detail
-This is data processing pipeline application which will take JSON input as POST and perform various operations.
+This is a data processing pipeline application which will take JSON input as a POST and perform various operations.
 
-A REST endpoint is taking a dummy JSON input, and the server puts the REST payload on Redis.
+A REST endpoint is taking a JSON input, and the server puts the REST payload on Redis.
 
 A Consumer will be running in the application, taking the freshly received message and persists it in H2 database.
 
-A REST endpoint is implemented for retrieving all the messages persisted in JSON format from the HR database.
+A REST endpoint is implemented for retrieving all the messages persisted in JSON format from the H2 database.
 
-The message should also be pushed through Websockets to listening browser clients at the time the message is received on the REST endpoint
+The message should also be pushed through Websockets to listening browser clients at the time the message is received on the REST endpoint.
 
-A simple HTML page is implemented to show the real time message delivery.
+A simple HTML page is implemented to show the real-time message delivery.
+
 
 ##### Tech Stack
 1. Spring Boot - used as foundation
@@ -21,10 +22,11 @@ A simple HTML page is implemented to show the real time message delivery.
 5. Websockets - used to push messages to listening web browser
 6. SockJS.js - WebSocket emulation
 7. STOMP.js - used as client for Web browser applications (using Web Sockets).
-8. Docker - used as container to deploy spring-boot application and for redis server
+8. Docker - used as a container to deploy the spring-boot application and for Redis server
 9. Maven - used as build tool for spring-boot application 
 
 To review detailed implementation, please start with `DataProcessingController.java`
+
 
 #### How to build/start this app
 * Run locally with maven
@@ -44,7 +46,6 @@ To review detailed implementation, please start with `DataProcessingController.j
 
 
 #### How to test this app
-
 * After successfully starting of spring-boot application.  Open web browser(Chrome/Firefox) and hit
     
     `http://localhost:8080/`
@@ -70,4 +71,3 @@ To review detailed implementation, please start with `DataProcessingController.j
 `HTTP Method : GET`
 
 `HTTP Status : 200 - Success`
-
