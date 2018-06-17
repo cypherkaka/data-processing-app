@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+
+/**
+ * Service class to process different payload
+ */
 @Service
 public class DataProcessingServiceImpl implements DataProcessingService {
 
@@ -27,12 +31,22 @@ public class DataProcessingServiceImpl implements DataProcessingService {
     @Autowired
     H2Repository h2Repository;
 
+
+
+    /**
+     * Publish message to various subscribers(Redis, H2, Web)
+     * @param message
+     */
     @Override
     public void process(final Message message) {
         validateMessage(message);
         messagePublisher.publish(message);
     }
 
+    /**
+     * Publish list of message to various subscribers(Redis, H2, Web)
+     * @param messageList
+     */
     @Override
     public void process(final List<Message> messageList) {
         messageList.parallelStream().forEach(message -> {
@@ -41,6 +55,11 @@ public class DataProcessingServiceImpl implements DataProcessingService {
         });
     }
 
+    /**
+     * Retrieve all messages based on given <code>limit</code> and send it back to its caller like RESTClient/Curl/3 rd party API
+     * @param limit A parameter to filter result
+     * @return List of message based on given <code>limit</code>
+     */
     @Override
     public List<Message> getAllMessages(final int limit) {
 

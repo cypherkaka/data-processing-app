@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 import process.repository.RedisRepository;
 
+
+/**
+ * This subscriber will process received payload and store it into Redis server (@see <a href="https://redis.io/">https://redis.io</a>) <br/>
+ */
 @Service
 public class RedisSubscriber implements MessageListener {
 

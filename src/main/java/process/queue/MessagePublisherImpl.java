@@ -8,6 +8,10 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 import process.domain.Message;
 
+
+/**
+ * This is a Publisher class which will publish given payload to the topic.
+ */
 @Service
 public class MessagePublisherImpl implements MessagePublisher {
 
@@ -27,6 +31,10 @@ public class MessagePublisherImpl implements MessagePublisher {
         this.topic = topic;
     }
 
+    /**
+     * Publish received message to the topic.
+     * @param message
+     */
     @Override
     public void publish(final Message message) {
         logger.info("Published: {}", message);

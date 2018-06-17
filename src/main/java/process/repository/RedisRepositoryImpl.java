@@ -9,6 +9,9 @@ import process.domain.Message;
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
+/**
+ * Redis repository
+ */
 @Repository
 public class RedisRepositoryImpl implements RedisRepository {
     private static final String KEY = "Message";

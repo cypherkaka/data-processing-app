@@ -10,6 +10,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 
+
+/**
+ * This subscriber will process received payload and push it through Websockets to listening browser clients  (@see <a href="https://redis.io/">https://redis.io</a>) <br/>
+ */
 @Service
 public class WebSubscriber implements MessageListener {
 

@@ -15,6 +15,9 @@ import process.queue.*;
 import process.repository.H2Repository;
 import process.repository.RedisRepository;
 
+/**
+ * Redis configuration
+ */
 @Configuration
 public class RedisConfig {
 

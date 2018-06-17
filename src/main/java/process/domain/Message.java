@@ -6,6 +6,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * A message to process through different channels.
+ */
 @Entity
 public class Message implements Serializable {
 

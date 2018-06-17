@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.SerializationUtils;
 import process.repository.H2Repository;
 
+/**
+ * This subscriber will process received payload and store it into in-memory database H2 (@see <a href="http://h2database.com/html/main.html">http://h2database.com/html/main.html</a>) <br/>
+ */
 @Service
 public class H2Subscriber implements MessageListener {
 
